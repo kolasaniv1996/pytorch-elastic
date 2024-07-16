@@ -6,7 +6,7 @@ RUN pip install torch
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app 
-COPY distributed.py launch.sh /app/
+COPY distributed.py elastic-distributed.py launch.sh /app/
 
 # Run the bash file
 RUN chmod u+x launch.sh
