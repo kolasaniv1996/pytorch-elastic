@@ -22,7 +22,7 @@ Elastic training in PyTorch allows for dynamic handling of worker nodes in a dis
     - Dynamic handling ensures minimal interruption and maximizes resource utilization.
 
 ### Important Note
-Checkpointing is a crucial part of Torch Elastic. According to PyTorch documentation:
+Checkpointing is a crucial part of Torch Elastic :
 > "On failures or membership changes, ALL surviving workers are killed immediately. Make sure to checkpoint your progress. The frequency of checkpoints should depend on your job’s tolerance for lost work."
 
 ## Do I Need to Change My Training Script?
