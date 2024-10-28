@@ -115,7 +115,7 @@ def prepare_dataloader(dataset: Dataset, batch_size: int, device):
         sampler=DistributedSampler(dataset)
     )
 
-def main(save_every: int, total_epochs: int, batch_size: int, snapshot_dir: str = "/home/local/data/runai-elastic-torch-training"):
+def main(save_every: int, total_epochs: int, batch_size: int, snapshot_dir: str = "/tmp/runai-elastic-torch-training"):
     device = setup_device()
     snapshot_path = os.path.join(snapshot_dir, "snapshot.pt")
     ddp_setup(device)
