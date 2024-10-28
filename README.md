@@ -33,6 +33,13 @@ No, you can use the same training scripts. However, if you are not usually check
 Launching the Distributed Training on Run:ai
 To start the elastic distributed training on Run:ai, ensure that you have the correct version of the CLI (v2.17 or later). To launch a distributed PyTorch training job, use the runai submit-dist pytorch command depending on your CLI version. Here is the command to submit our job:
 
-runai submit-dist pytorch --name elastic-workload --workers=3 --max-replicas 4 --min-replicas 2 -g 1 -i docker.io/vivekkolasani1996/pytorch-elastic:v1
+runai submit-dist pytorch \                 
+  --name elastic-workload \
+  --workers 3 \
+  --max-replicas 4 \
+  --min-replicas 2 \
+  -g 1 \
+  -i vivekkolasani1996/adobe-elastic-pytorch-satya:v2 \
+  --command -- bash -c "/app/launch.sh && sleep infinity"
 
 
