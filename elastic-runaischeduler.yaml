@@ -30,8 +30,10 @@ spec:
               resources:
                 requests:
                   cpu: 100m
+                  nvidia.com/gpu: 1  # Request 1 GPU
                 limits:
                   cpu: 200m
+                  nvidia.com/gpu: 1  # Limit to 1 GPU
               env:
                 - name: LOGLEVEL
                   value: DEBUG
@@ -45,4 +47,3 @@ spec:
                 - "--batch-size=32"
                 - "--workers=0"
                 - "/workspace/data/tiny-imagenet-200"
-
