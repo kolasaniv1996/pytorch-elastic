@@ -1,0 +1,43 @@
+apiVersion: "kubeflow.org/v1"
+kind: PyTorchJob
+metadata:
+  name: elastic-example-imagenet
+  namespace: runai-projectname
+spec:
+  elasticPolicy:
+    rdzvBackend: c10d
+    minReplicas: 1
+    maxReplicas: 50
+    maxRestarts: 1000000
+    metrics:
+      - type: Resource
+        resource:
+          name: cpu
+          target:
+            type: Utilization
+            averageUtilization: 2
+  pytorchReplicaSpecs:
+    Worker:
+      replicas: 2
+      restartPolicy: Never
+      template:
+        spec:
+          schedulerName: runai-scheduler
+          containers:
+            - name: pytorch
+              image: kubeflow/pytorch-elastic-example-imagenet:latest
+              imagePullPolicy: IfNotPresent
+              resources:
+                requests:
+                  cpu: 100m
+                  nvidia.com/gpu: 8
+                limits:
+                  cpu: 200m
+                  nvidia.com/gpu: 8
+              env:
+                - name: LOGLEVEL
+                  value: DEBUG
+              command:
+                - sh
+                - -c
+                - "while true; do python -m torch.distributed.run /workspace/examples/imagenet.py --arch=resnet18 --epochs=1 --batch-size=32 --workers=0 /workspace/data/tiny-imagenet-200; sleep 5; done"
